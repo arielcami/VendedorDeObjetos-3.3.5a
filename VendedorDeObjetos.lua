@@ -1,4 +1,4 @@
--- // Datos de Configuracion del comportamiento del Scritp //
+-- // Datos de Configuración del comportamiento del Scritp //
 
 local NPC_ID = 00000 -- Entry del NPC que correrá el script
 local MAX_RESULTS = 25
@@ -154,7 +154,7 @@ local LISTA_NEGRA = "33350,37410,24477,24476,33470,21877,28430,40553,41257,41383
     .. "28953,32188,32189,23242,11743,20005,28905,5600,48440,48507,42238,42231,42226,42207,42236,42206,42212,42213,42214,45575,36575,31985,31965,"
     .. "28308,28309,28946,28920,32175,32174,22816,45630,17068,33080,3895,5255,4965,2498,2482,20979,37,49689,29712,29419,12348,1259"
 
--- Volcado de items en la db, se puede agregar más IDs aquí
+-- Volcado de items en la db
 local dump_data = "INSERT INTO aa_itemvendor (entry, `name`, buyPrice, maxCount) " ..
     "SELECT it.entry, itl.Name, it.buyPrice, it.maxcount " ..
     "FROM item_template it " ..
@@ -277,9 +277,10 @@ local function CLICK_1(e, P, U)
     P:GossipMenuAddItem(8, ico(3) .. 'Compras frecuentes', 5, 0)    
     P:GossipMenuAddItem(8, ico(2) .. 'Ver mis últimas compras', 4, 0)
 
+    -- CUIDADO: Este bloque contiene operaciones CRUD para gestionar los objetos sin necesidad de acceder a la DB desde un IDE.
+    -- Coloca el ID DE LA CUENTA que podrá AÑADIR/EDITAR/ELIMIAR objetos de la tabla del script (no del juego).
     local player_account = P:GetAccountId()
-    local account_is_allowed = player_account == 1 -- or player_account == 5 -- arielcamilo y ariel2
-
+    local account_is_allowed = player_account == 1 
     if account_is_allowed then
         P:GossipMenuAddItem(0, ico(1) .. '[|cff0080ffAñadir objeto|r]', 1, 0, true, 'Ingresar el ID de objeto')
         P:GossipMenuAddItem(0, ico(1) .. '[|cff1b7300Editar precio de objeto|r]', 2, 0, true, 'Ingresar el ID de objeto')
